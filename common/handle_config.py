@@ -1,6 +1,7 @@
 """
 Time:2022/8/2 000210:54
 Author:bty
+用于读取配置文件信息
 """
 import os
 from common.handle_path import CONF_PATH
