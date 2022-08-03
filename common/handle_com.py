@@ -26,6 +26,20 @@ def random_phone() -> str:
             return phone
 
 
+def res_assert_expected(res, expected: dict):
+    """
+    实际结果与预期结果进行比对
+    :param res: 实际结果
+    :param expected: 预期结果
+    :return:
+    """
+    for k in expected:
+        if expected.get(k) == res.get(k):
+            pass
+        else:
+            raise AssertionError("预期结果：{} not in 实际结果：{}".format(expected, res))
+
+
 if __name__ == '__main__':
     p = random_phone()
     print(p, type(p))
