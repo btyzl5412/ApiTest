@@ -6,6 +6,7 @@ import pytest
 import os
 import requests
 import json
+from common.handle_replace import replace_data,BaseCase
 from common.handle_log import mylog
 from common.handle_path import DATAS_PATH
 from common.handle_excel import HandleExcel
@@ -13,7 +14,7 @@ from common.handle_config import conf
 from common.handle_com import random_phone, res_assert_expected
 
 
-class TestRegister:
+class TestRegister(BaseCase):
     # 获取测试数据
     excel = HandleExcel(file_name=os.path.join(DATAS_PATH, 'newApiCase.xlsx'), sheet_name='register')
     cases = excel.read_excel()
@@ -28,10 +29,12 @@ class TestRegister:
         method = items['method'].lower()
         expected = eval(items['expected'])
         row = items['case_id'] + 1
-        if "#phone#" in items['data']:
-            phone = random_phone()
-            items['data'] = items['data'].replace('#phone#', phone)
-        data = eval(items['data'])
+        BaseCase.phone = random_phone()
+        data = eval(replace_data(items['data']))
+        # if "#phone#" in items['data']:
+        #     phone = random_phone()
+        #     items['data'] = items['data'].replace('#phone#', phone)
+        # data = eval(items['data'])
         # 发起请求
         response = requests.request(url=url, method=method, json=data, headers=self.base_headers)
         res = response.json()

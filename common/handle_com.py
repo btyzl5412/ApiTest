@@ -37,7 +37,7 @@ def res_assert_expected(res, expected: dict):
         if expected.get(k) == res.get(k):
             pass
         else:
-            raise AssertionError("预期结果：{} not in 实际结果：{}".format(expected, res))
+            raise AssertionError("预期结果：{}与实际结果：{}不符".format(expected, res))
 
 
 if __name__ == '__main__':
